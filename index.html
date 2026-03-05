@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vani Radio Home - Premium Collections Since 1960</title>
+    
+    <!-- Premium Google Fonts: Inter (Body), Playfair (Headings), Montserrat (Numbers) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- MODERN RESET & VARIABLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            /* Legacy & Trust Palette */
+            --navy-dark: #070d1f;     
+            --navy-light: #121b33;    
+            --gold-accent: #c9a245;   
+            --gold-light: #e8cca1;
+            --bg-page: #fcfbf9;       
+            --text-main: #222222;     
+            --text-muted: #666666;    
+            --white: #ffffff;
+            
+            /* Shadows & Easing */
+            --shadow-float: 0 20px 40px rgba(7, 13, 31, 0.08);
+            --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, .serif-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- GLOBAL UTILITIES --- */
+        .btn-primary {
+            display: inline-block;
+            background: transparent;
+            color: var(--navy-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 15px 35px;
+            border: 1px solid var(--navy-dark);
+            cursor: pointer;
+            transition: all 0.4s var(--ease-smooth);
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--navy-dark);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- MODERN GLASS HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(252, 251, 249, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.4s ease;
+        }
+
+        nav {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-img { height: 40px; width: auto; object-fit: contain; }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links { display: flex; gap: 3rem; list-style: none; }
+
+        .nav-links li {
+            cursor: pointer;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 1px;
+            bottom: 0; left: 0;
+            background-color: var(--navy-dark);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li:hover::after, .nav-links li.active-nav::after { width: 100%; }
+        .nav-links li:hover, .nav-links li.active-nav { color: var(--navy-dark); }
+
+        /* --- PAGE MANAGEMENT --- */
+        .page {
+            display: none;
+            animation: fadePage 0.6s var(--ease-smooth) forwards;
+            flex: 1;
+        }
+
+        .page.active-page { display: block; }
+
+        @keyframes fadePage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- IMMERSIVE HERO SECTION --- */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: var(--navy-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-section video {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%; min-height: 100%;
+            z-index: 1;
+            object-fit: cover;
+        }
+
+        .hero-section .hero-placeholder {
+            position: absolute; width: 100%; height: 100%;
+            background: url('assets/store/store1.jpeg') no-repeat center center;
+            background-size: cover; z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(7, 13, 31, 0.4);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+            max-width: 1000px;
+            margin-top: 80px; 
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-content p.subtitle {
+            font-size: 1rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: var(--white);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.8;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator::after {
+            content: '';
+            width: 1px; height: 40px;
+            background: var(--white);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+
+        /* --- EDITORIAL SPLIT SHOWCASE (DEPARTMENTS) --- */
+        .showcase-wrapper {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .showcase-row {
+            display: flex;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 5rem;
+            padding: 0 2rem;
+        }
+
+        .showcase-row.reverse { flex-direction: row-reverse; }
+
+        .showcase-media {
+            flex: 1.2;
+            position: relative;
+            aspect-ratio: 3 / 2; /* Forces perfect landscape */
+            height: auto;
+            overflow: hidden;
+            background: #eee;
+            border-radius: 12px;
+            box-shadow: var(--shadow-float);
+            cursor: pointer;
+        }
+
+        .showcase-slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out, transform 8s linear;
+            z-index: 1;
+        }
+
+        .showcase-slideshow img.active {
+            opacity: 1;
+            transform: scale(1.05); /* Luxurious slow zoom effect */
+            z-index: 2;
+        }
+
+        .showcase-content {
+            flex: 1;
+            padding: 2rem 0;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .showcase-content h4 {
+            color: var(--gold-accent);
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .showcase-content h2 {
+            font-size: 3.5rem;
+            color: var(--navy-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .showcase-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            max-width: 500px;
+        }
+
+        /* --- TRUST & LEGACY BANNER --- */
+        .legacy-banner {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 100px 2rem;
+            text-align: center;
+        }
+
+        .legacy-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .legacy-item h3 {
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 3.8rem;
+            font-weight: 400;
+            color: var(--gold-accent);
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+
+        .legacy-item p {
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            color: var(--gold-light);
+        }
+
+        .legacy-story {
+            max-width: 900px;
+            margin: 80px auto 0;
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #d1d5db;
+            font-weight: 300;
+            text-align: justify; 
+        }
+
+        /* --- TRUSTED BRANDS RIBBON --- */
+        .brand-section {
+            padding: 60px 0;
+            background: var(--white);
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .brand-section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .brand-section-header h4 {
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--navy-dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .brand-track-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Smooth fade effect on the left and right edges */
+        .brand-track-container::before,
+        .brand-track-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .brand-track-container::before {
+            left: 0;
+            background: linear-gradient(to right, var(--white) 0%, transparent 100%);
+        }
+
+        .brand-track-container::after {
+            right: 0;
+            background: linear-gradient(to left, var(--white) 0%, transparent 100%);
+        }
+
+        .brand-track {
+            display: flex;
+            width: max-content;
+            align-items: center;
+        }
+
+        .track-left {
+            animation: scrollBrandsLeft 40s linear infinite;
+            margin-bottom: 40px; /* Space between the two rows */
+        }
+
+        .track-right {
+            animation: scrollBrandsRight 40s linear infinite;
+        }
+
+        /* Pauses the scrolling if a customer hovers over a brand */
+        .brand-track:hover {
+            animation-play-state: paused;
+        }
+
+        .brand-logo {
+            width: 200px;
+            flex-shrink: 0;
+            padding: 0 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .brand-logo img {
+            max-width: 100%;
+            max-height: 60px;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.4s var(--ease-smooth);
+        }
+
+        .brand-logo:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Left-scrolling animation */
+        @keyframes scrollBrandsLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Right-scrolling animation */
+        @keyframes scrollBrandsRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* --- GALLERY GRID (HOME & COLLECTIONS) --- */
+        .gallery-section {
+            padding: 120px 2rem;
+            background: var(--bg-page);
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--navy-dark);
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold-accent);
+            font-size: 0.9rem;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .grid-item {
+            aspect-ratio: 3/2;
+            overflow: hidden;
+            position: relative;
+            background: #eee;
+            cursor: pointer;
+        }
+
+        .grid-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-smooth);
+        }
+
+        .grid-item::after {
+            content: 'VIEW';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            opacity: 0;
+            z-index: 2;
+            transition: opacity 0.4s ease;
+        }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(7, 13, 31, 0.5);
+            opacity: 0;
+            z-index: 1;
+            transition: opacity 0.4s ease;
+        }
+
+        .grid-item:hover img { transform: scale(1.05); }
+        .grid-item:hover::before, .grid-item:hover::after { opacity: 1; }
+
+        /* --- COLLECTIONS PAGE SPECIFIC --- */
+        .collection-hero {
+            padding: 150px 2rem 60px;
+            text-align: center;
+            background: var(--white);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .collection-hero h1 {
+            font-size: 4rem;
+            color: var(--navy-dark);
+        }
+
+        /* --- CONTACT PAGE --- */
+        .contact-wrap {
+            max-width: 1400px;
+            margin: 150px auto 100px;
+            padding: 0 2rem;
+            display: flex;
+            gap: 4rem;
+        }
+
+        .contact-text { flex: 1; }
+        .contact-text h1 { font-size: 4rem; color: var(--navy-dark); margin-bottom: 2rem; }
+        
+        .contact-detail-block { margin-bottom: 2.5rem; }
+        .contact-detail-block h4 { 
+            font-family: 'Inter', sans-serif; 
+            color: var(--gold-accent); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            font-size: 0.8rem; 
+            margin-bottom: 10px; 
+        }
+        .contact-detail-block p { font-size: 1.2rem; color: var(--text-main); line-height: 1.6; }
+
+        .contact-map-area { flex: 1.5; height: 600px; background: #eee; }
+        .contact-map-area iframe { width: 100%; height: 100%; border: none; filter: grayscale(50%) contrast(1.2); }
+
+        /* --- ADVANCED LIGHTBOX MODAL --- */
+        .modal {
+            display: none; position: fixed; z-index: 3000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(7, 13, 31, 0.98);
+            align-items: center; justify-content: center;
+        }
+        .modal-content {
+            max-width: 80%; max-height: 85vh; object-fit: contain;
+            animation: zoom 0.4s var(--ease-smooth);
+            user-select: none;
+        }
+        @keyframes zoom { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .close-modal { 
+            position: absolute; top: 30px; right: 40px; 
+            color: var(--white); font-size: 40px; font-weight: 300; 
+            cursor: pointer; transition: color 0.3s; z-index: 3001; 
+        }
+        .close-modal:hover { color: var(--gold-accent); }
+
+        /* Left / Right Navigation Arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 60px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            user-select: none;
+            padding: 20px;
+            z-index: 3001;
+        }
+        .nav-arrow:hover { color: var(--gold-accent); transform: translateY(-50%) scale(1.1); }
+        .left-arrow { left: 30px; }
+        .right-arrow { right: 30px; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 60px 2rem;
+            text-align: center;
+        }
+        footer p { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+
+        /* --- MOBILE APP RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .showcase-row, .showcase-row.reverse { flex-direction: column; gap: 3rem; }
+            .showcase-media { width: 100%; aspect-ratio: 3/2; height: auto; }
+            .showcase-content { padding: 0; align-items: center; text-align: center; }
+            .showcase-content p { margin: 0 auto 2rem; }
+            .legacy-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+            .contact-wrap { flex-direction: column; margin-top: 120px; }
+            .contact-map-area { height: 400px; }
+            .hero-content h1 { font-size: 3.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            header nav { justify-content: center; padding: 1rem; }
+            .nav-links { display: none; }
+            .page { padding-bottom: 80px; } 
+            
+            .mobile-nav {
+                display: flex; position: fixed; bottom: 0; left: 0; width: 100%;
+                background: rgba(252, 251, 249, 0.95); backdrop-filter: blur(15px);
+                border-top: 1px solid rgba(0,0,0,0.05);
+                padding: 15px 0 25px 0; justify-content: space-evenly; z-index: 2000;
+            }
+            .mobile-nav li {
+                list-style: none; font-size: 0.7rem; font-weight: 600;
+                text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);
+                display: flex; flex-direction: column; align-items: center; gap: 5px;
+            }
+            .mobile-nav li.active-nav { color: var(--navy-dark); }
+            .mobile-nav li::after {
+                content: ''; width: 4px; height: 4px; border-radius: 50%;
+                background: transparent; transition: background 0.3s;
+            }
+            .mobile-nav li.active-nav::after { background: var(--gold-accent); }
+
+            .hero-content h1 { font-size: 2.8rem; }
+            .collection-hero h1 { font-size: 2.8rem; }
+            .legacy-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .legacy-story { text-align: left; } 
+            .grid-layout { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            
+            .nav-arrow { font-size: 40px; padding: 10px; }
+            .left-arrow { left: 0; }
+            .right-arrow { right: 0; }
+            .modal-content { max-width: 100%; }
+
+            footer { display: none; }
+        }
+        @media (min-width: 769px) { .mobile-nav { display: none; } }
+    </style>
+    
+    <script>
+        // Advanced Image Fallback Logic: Tries .jpeg -> .jpg -> .png -> Hide element
+        function imageFallback(img) {
+            if (!img.dataset.fallbackState) {
+                // 1st failure: Try replacing .jpeg with .jpg
+                img.dataset.fallbackState = "jpg";
+                img.src = img.src.replace(/\.jpeg/i, '.jpg');
+            } else if (img.dataset.fallbackState === "jpg") {
+                // 2nd failure: Try replacing .jpg with .png
+                img.dataset.fallbackState = "png";
+                img.src = img.src.replace(/\.jpg/i, '.png');
+            } else {
+                // 3rd failure: No matching format found
+                if (img.parentElement.classList.contains('grid-item') || img.parentElement.classList.contains('brand-logo')) {
+                    // If it's a grid item on the Collections page or a brand logo, hide the whole box to keep the grid/track clean
+                    img.parentElement.style.display = 'none';
+                } else {
+                    // If it's the Slideshow on the Home page, ONLY hide the image itself.
+                    // This perfectly preserves the Zig-Zag grey box layout even if empty!
+                    img.style.display = 'none';
+                    img.classList.remove('active');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo-container" onclick="showPage('landing')">
+                <img src="assets/logo.png" alt="VRH" class="logo-img" onerror="this.style.display='none'">
+                <span class="logo-text">Vani Radio Home</span>
+            </div>
+            <ul class="nav-links">
+                <li id="nav-landing" class="active-nav" onclick="showPage('landing')">Home</li>
+                <li id="nav-collections" onclick="showPage('collections')">Collections</li>
+                <li id="nav-contact" onclick="showPage('contact')">Visit Us</li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <ul class="mobile-nav">
+        <li id="mob-nav-landing" class="active-nav" onclick="showPage('landing')">Home</li>
+        <li id="mob-nav-collections" onclick="showPage('collections')">Collections</li>
+        <li id="mob-nav-contact" onclick="showPage('contact')">Visit Us</li>
+    </ul>
+
+    <!-- PAGE 1: HOME -->
+    <div id="page-landing" class="page active-page">
+        
+        <!-- Cinematic Hero -->
+        <section class="hero-section">
+            <video autoplay muted loop playsinline>
+                <source src="assets/store_walkthrough.mp4" type="video/mp4">
+            </video>
+            <div class="hero-placeholder"></div>
+            <div class="hero-overlay"></div>
+            
+            <div class="hero-content fade-in-section">
+                <p class="subtitle">Est. 1960 &mdash; Anakapalle</p>
+                <h1>The Art of<br>Beautiful Living</h1>
+            </div>
+
+            <div class="scroll-indicator">Explore</div>
+        </section>
+
+        <!-- Department 1: Sofa -->
+        <div class="showcase-wrapper">
+            <div class="showcase-row fade-in-section">
+                <div class="showcase-media showcase-slideshow">
+                    <img src="assets/sofa/1.jpeg" class="active" onerror="imageFallback(this)">
+                    <img src="assets/sofa/2.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/sofa/3.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/sofa/4.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/sofa/5.jpeg" onerror="imageFallback(this)">
+                </div>
+                <div class="showcase-content">
+                    <h4>01 &mdash; Department</h4>
+                    <h2>Sofa</h2>
+                    <p>Experience unparalleled comfort and style. Our premium sofa collections are crafted to be the perfect centerpiece for your living room, defining modern luxury and relaxation.</p>
+                    <button class="btn-primary" onclick="goToCollection('sec-sofa')">View Collection</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department 2: Dining Table (Reversed/ZigZag) -->
+        <div class="showcase-wrapper" style="background: var(--bg-page);">
+            <div class="showcase-row reverse fade-in-section">
+                <div class="showcase-media showcase-slideshow">
+                    <img src="assets/dining_table/1.jpeg" class="active" onerror="imageFallback(this)">
+                    <img src="assets/dining_table/2.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/dining_table/3.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/dining_table/4.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/dining_table/5.jpeg" onerror="imageFallback(this)">
+                </div>
+                <div class="showcase-content">
+                    <h4>02 &mdash; Department</h4>
+                    <h2>Dining Table</h2>
+                    <p>Gather around elegance. Discover beautifully crafted dining sets designed to foster unforgettable family meals and elevate the way you entertain guests.</p>
+                    <button class="btn-primary" onclick="goToCollection('sec-dining')">View Collection</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department 3: Cots (Zig) -->
+        <div class="showcase-wrapper">
+            <div class="showcase-row fade-in-section">
+                <div class="showcase-media showcase-slideshow">
+                    <img src="assets/cots/1.jpeg" class="active" onerror="imageFallback(this)">
+                    <img src="assets/cots/2.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/cots/3.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/cots/4.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/cots/5.jpeg" onerror="imageFallback(this)">
+                </div>
+                <div class="showcase-content">
+                    <h4>03 &mdash; Department</h4>
+                    <h2>Cots</h2>
+                    <p>Transform your bedroom into a sanctuary of rest. Explore our sturdy, exquisitely designed cots built for lasting comfort and timeless visual appeal.</p>
+                    <button class="btn-primary" onclick="goToCollection('sec-cots')">View Collection</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department 4: Exclusive (Zag) -->
+        <div class="showcase-wrapper" style="background: var(--bg-page);">
+            <div class="showcase-row reverse fade-in-section">
+                <div class="showcase-media showcase-slideshow">
+                    <img src="assets/exclusive/1.jpeg" class="active" onerror="imageFallback(this)">
+                    <img src="assets/exclusive/2.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/exclusive/3.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/exclusive/4.jpeg" onerror="imageFallback(this)">
+                    <img src="assets/exclusive/5.jpeg" onerror="imageFallback(this)">
+                </div>
+                <div class="showcase-content">
+                    <h4>04 &mdash; Department</h4>
+                    <h2>Exclusive</h2>
+                    <p>Curated premium selections for the discerning homeowner. Discover high-end appliances and unique pieces that seamlessly elevate your everyday living.</p>
+                    <button class="btn-primary" onclick="goToCollection('sec-exclusive')">View Collection</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legacy Banner -->
+        <section class="legacy-banner fade-in-section">
+            <div class="legacy-grid">
+                <div class="legacy-item">
+                    <h3>1960</h3><p>Established</p>
+                </div>
+                <div class="legacy-item">
+                    <h3>15K</h3><p>Sq. Ft. Showroom</p>
+                </div>
+                <div class="legacy-item">
+                    <h3>4</h3><p>Core Departments</p>
+                </div>
+                <div class="legacy-item">
+                    <h3>100%</h3><p>Trust & Service</p>
+                </div>
+            </div>
+            <p class="legacy-story">
+                What began as a humble radio shop has blossomed into Anakapalle's ultimate home destination. For over six decades, we have been a part of countless family milestones. We take immense pride in being the only destination in town where you can experience world-class electronics, high-performance appliances, and hand-crafted furniture under a single roof. Our 60-year legacy guarantees absolute confidence in the quality of your products and unmatched reliability in our post-sales service.
+            </p>
+        </section>
+
+        <!-- Trusted Brands Ribbon -->
+        <section class="brand-section fade-in-section">
+            <div class="brand-section-header">
+                <h4>Shop Top Brands</h4>
+            </div>
+            <div class="brand-track-container">
+                
+                <!-- Row 1: Scrolls Left (Brands 1-10) -->
+                <div class="brand-track track-left">
+                    <!-- First Set -->
+                    <div class="brand-logo"><img src="assets/brands/1.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/2.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/3.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/4.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/5.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/6.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/7.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/8.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/9.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/10.jpeg" onerror="imageFallback(this)"></div>
+                    
+                    <!-- Exact Duplicate Set (Required for infinite scroll illusion) -->
+                    <div class="brand-logo"><img src="assets/brands/1.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/2.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/3.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/4.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/5.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/6.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/7.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/8.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/9.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/10.jpeg" onerror="imageFallback(this)"></div>
+                </div>
+
+                <!-- Row 2: Scrolls Right (Brands 11-20) -->
+                <div class="brand-track track-right">
+                    <!-- First Set -->
+                    <div class="brand-logo"><img src="assets/brands/11.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/12.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/13.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/14.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/15.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/16.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/17.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/18.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/19.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/20.jpeg" onerror="imageFallback(this)"></div>
+                    
+                    <!-- Exact Duplicate Set (Required for infinite scroll illusion) -->
+                    <div class="brand-logo"><img src="assets/brands/11.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/12.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/13.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/14.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/15.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/16.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/17.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/18.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/19.jpeg" onerror="imageFallback(this)"></div>
+                    <div class="brand-logo"><img src="assets/brands/20.jpeg" onerror="imageFallback(this)"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Showroom Gallery -->
+        <section class="gallery-section">
+            <div class="section-header fade-in-section">
+                <p>The Experience</p>
+                <h2>Our Showroom</h2>
+            </div>
+            <div class="grid-layout fade-in-section">
+                <div class="grid-item"><img src="assets/store/store1.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/store/store2.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/store/store3.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/store/store4.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/store/store5.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/store/store6.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/store/store7.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/store/store8.jpeg" onerror="imageFallback(this)"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PAGE 2: COLLECTIONS -->
+    <div id="page-collections" class="page">
+        <div class="collection-hero fade-in-section">
+            <p class="subtitle" style="color: var(--gold-accent); letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem;">Curated Portfolios</p>
+            <h1>The Collections</h1>
+        </div>
+
+        <!-- Sofa -->
+        <section id="sec-sofa" class="gallery-section">
+            <div class="section-header"><h2>Sofa Collection</h2></div>
+            <div class="grid-layout">
+                <div class="grid-item"><img src="assets/sofa/1.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/2.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/3.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/4.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/5.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/6.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/7.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/8.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/9.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/10.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/11.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/sofa/12.jpeg" onerror="imageFallback(this)"></div>
+            </div>
+        </section>
+
+        <!-- Dining Table -->
+        <section id="sec-dining" class="gallery-section" style="background: var(--white);">
+            <div class="section-header"><h2>Dining Tables</h2></div>
+            <div class="grid-layout">
+                <div class="grid-item"><img src="assets/dining_table/1.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/2.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/3.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/4.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/5.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/6.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/7.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/8.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/9.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/10.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/11.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/dining_table/12.jpeg" onerror="imageFallback(this)"></div>
+            </div>
+        </section>
+
+        <!-- Cots -->
+        <section id="sec-cots" class="gallery-section">
+            <div class="section-header"><h2>Cots & Bedding</h2></div>
+            <div class="grid-layout">
+                <div class="grid-item"><img src="assets/cots/1.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/2.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/3.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/4.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/5.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/6.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/7.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/8.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/9.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/10.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/11.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/cots/12.jpeg" onerror="imageFallback(this)"></div>
+            </div>
+        </section>
+
+        <!-- Exclusive -->
+        <section id="sec-exclusive" class="gallery-section" style="background: var(--white);">
+            <div class="section-header"><h2>Exclusive</h2></div>
+            <div class="grid-layout">
+                <div class="grid-item"><img src="assets/exclusive/1.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/2.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/3.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/4.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/5.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/6.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/7.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/8.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/9.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/10.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/11.jpeg" onerror="imageFallback(this)"></div>
+                <div class="grid-item"><img src="assets/exclusive/12.jpeg" onerror="imageFallback(this)"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PAGE 3: CONTACT -->
+    <div id="page-contact" class="page">
+        <div class="contact-wrap fade-in-section">
+            <div class="contact-text">
+                <h1>Visit the<br>Showroom</h1>
+                <div class="contact-detail-block">
+                    <h4>Location</h4>
+                    <p>Vani Radio Home<br>Chintavari Street<br>Anakapalle, Andhra Pradesh, India</p>
+                </div>
+                <div class="contact-detail-block">
+                    <h4>Direct Line</h4>
+                    <p>+91 97899 74312<br>vaniradiohome@gmail.com</p>
+                </div>
+                <div class="contact-detail-block">
+                    <h4>Store Hours</h4>
+                    <p>Monday - Saturday: 9:30 AM - 8:30 PM<br>Sunday: Closed</p>
+                </div>
+            </div>
+            <div class="contact-map-area">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3801.2246247507837!2d83.00971539999999!3d17.6868458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a397120a9dcc0ed%3A0xbb7b994590c8d7f6!2sVani%20Radio%20Home!5e0!3m2!1sen!2sin!4v1770892572789!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL WITH NAVIGATION -->
+    <div id="imageModal" class="modal">
+        <!-- Close Button -->
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        
+        <!-- Left Arrow -->
+        <span class="nav-arrow left-arrow" onclick="changeModalImage(-1); event.stopPropagation();">&#10094;</span>
+        
+        <!-- Image (Clicking the image itself prevents the modal from closing) -->
+        <img class="modal-content" id="modalImg" onclick="event.stopPropagation();">
+        
+        <!-- Right Arrow -->
+        <span class="nav-arrow right-arrow" onclick="changeModalImage(1); event.stopPropagation();">&#10095;</span>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Vani Radio Home. Est. 1960. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Page Switching Logic
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById('page-' + pageId).classList.add('active-page');
+
+            document.querySelectorAll('.nav-links li').forEach(n => n.classList.remove('active-nav'));
+            const dNav = document.getElementById('nav-' + pageId);
+            if(dNav) dNav.classList.add('active-nav');
+
+            document.querySelectorAll('.mobile-nav li').forEach(n => n.classList.remove('active-nav'));
+            const mNav = document.getElementById('mob-nav-' + pageId);
+            if(mNav) mNav.classList.add('active-nav');
+
+            window.scrollTo(0,0);
+            setTimeout(handleScrollAnimations, 50);
+        }
+
+        function goToCollection(categoryId) {
+            showPage('collections');
+            setTimeout(() => {
+                const element = document.getElementById(categoryId);
+                if (element) {
+                    const y = element.getBoundingClientRect().top + window.scrollY - 100;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
+            }, 100);
+        }
+
+        // --- ADVANCED LIGHTBOX LOGIC ---
+        let currentGalleryImages = [];
+        let currentImageIndex = 0;
+
+        function openModal(index) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImg");
+            modal.style.display = "flex"; 
+            
+            currentImageIndex = index;
+            modalImg.src = currentGalleryImages[currentImageIndex].src;
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        function changeModalImage(direction) {
+            if (currentGalleryImages.length === 0) return;
+            // Calculate next index, wrapping around perfectly
+            currentImageIndex = (currentImageIndex + direction + currentGalleryImages.length) % currentGalleryImages.length;
+            document.getElementById("modalImg").src = currentGalleryImages[currentImageIndex].src;
+        }
+
+        function setupGalleryLightbox() {
+            // Setup for Collection Grids
+            const galleries = document.querySelectorAll('.grid-layout');
+            
+            galleries.forEach(gallery => {
+                const images = gallery.querySelectorAll('.grid-item img');
+                
+                images.forEach((img) => {
+                    img.parentElement.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        // Get only the valid images (exclude missing ones hidden by fallback) inside THIS specific section
+                        currentGalleryImages = Array.from(images).filter(i => i.style.display !== 'none');
+                        
+                        const index = currentGalleryImages.indexOf(img);
+                        if (index !== -1) {
+                            openModal(index);
+                        }
+                    });
+                });
+            });
+
+            // Setup for Home Page Slideshows
+            const slideshows = document.querySelectorAll('.showcase-slideshow');
+            slideshows.forEach(slideshow => {
+                slideshow.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const activeImg = this.querySelector('img.active');
+                    if (activeImg) {
+                        currentGalleryImages = Array.from(this.querySelectorAll('img')).filter(i => i.style.display !== 'none');
+                        const index = currentGalleryImages.indexOf(activeImg);
+                        if (index !== -1) openModal(index);
+                    }
+                });
+            });
+
+            // Close modal when clicking on the dark background
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+
+            // Add Keyboard Support (Left/Right Arrows + Esc)
+            document.addEventListener('keydown', function(e) {
+                if (document.getElementById("imageModal").style.display === "flex") {
+                    if (e.key === "ArrowLeft") changeModalImage(-1);
+                    if (e.key === "ArrowRight") changeModalImage(1);
+                    if (e.key === "Escape") closeModal();
+                }
+            });
+        }
+
+        // --- SHOWCASE SLIDESHOW LOGIC ---
+        function setupShowcaseSlideshows() {
+            const slideshows = document.querySelectorAll('.showcase-slideshow');
+            
+            slideshows.forEach(slideshow => {
+                // Initialize the active state properly
+                setTimeout(() => {
+                    let validImages = Array.from(slideshow.querySelectorAll('img')).filter(img => img.style.display !== 'none');
+                    if(validImages.length > 0 && !validImages.some(img => img.classList.contains('active'))) {
+                        validImages[0].classList.add('active');
+                    }
+                }, 300);
+
+                // Start intervals
+                setInterval(() => {
+                    let images = Array.from(slideshow.querySelectorAll('img')).filter(img => img.style.display !== 'none');
+                    if (images.length <= 1) return; // Need at least 2 images to transition
+                    
+                    let currentIndex = images.findIndex(img => img.classList.contains('active'));
+                    if (currentIndex === -1) currentIndex = 0;
+                    
+                    images[currentIndex].classList.remove('active');
+                    let nextIndex = (currentIndex + 1) % images.length;
+                    images[nextIndex].classList.add('active');
+                }, 4000); // Transitions every 4 seconds
+            });
+        }
+
+        // Scroll Animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in-section');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 50) {
+                    el.classList.add('is-visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScrollAnimations);
+
+        window.onload = () => {
+            setupGalleryLightbox();
+            setupShowcaseSlideshows();
+            handleScrollAnimations(); 
+        };
+    </script>
+</body>
+</html>
